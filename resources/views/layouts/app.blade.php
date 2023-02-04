@@ -80,18 +80,11 @@
                 <div class="row">
                     <div class="col-md-8">
                         @yield('content')
-                    </div>
-                    @if(Auth::check())
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">Quick links</div>
-                            <div class="card-body"></div>
-                        </div>
-                    </div>
-                    @endif
+                    </div>                    
                 </div>
             </div>
         </main>
     </div>
+    @stack('js')
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\products\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// products route
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('products', ProductsController::class);
+});
