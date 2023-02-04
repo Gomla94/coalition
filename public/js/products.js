@@ -6,6 +6,7 @@ const productQuantityInput = document.querySelector(".productQuantity");
 const productsTable = document.querySelector(".productsTable");
 const sumTotalValue = document.querySelector(".sumTotalValue");
 const productId = document.querySelector(".productId");
+const currentHref = document.location.origin;
 
 productNameInput.addEventListener("input", (e) => {
     removeValidationStyle(e);
@@ -27,7 +28,7 @@ const appendProductRowToProductsTable = (productId, product, createdAt) => {
         <td>${product.price}</td>
         <td>${createdAt}</td>
         <td>${product.price * product.quantity_in_stock}</td>
-        <td><a href="/products/${productId}/edit" class="btn btn-sm btn-info">Edit</a></td>
+        <td><a href="${currentHref}/products/${productId}/edit" class="btn btn-sm btn-info">Edit</a></td>
     `;
     productsTable.querySelector(".tbody").appendChild(tableRow);
     let oldTotalValue =
@@ -47,10 +48,13 @@ const updateProduct = async () => {
     };
 
     try {
-        const response = await axios.post(`/products/${productId.value}`, {
-            _method: "patch",
-            data: productData,
-        });
+        const response = await axios.post(
+            `${currentHref}/products/${productId.value}`,
+            {
+                _method: "patch",
+                data: productData,
+            }
+        );
 
         if (response.data.error) {
             alert("something went wrong");
@@ -76,7 +80,7 @@ const storeProduct = async () => {
     };
 
     try {
-        const response = await axios.post(`/products/`, {
+        const response = await axios.post(`${currentHref}/products/`, {
             data: productData,
         });
 
